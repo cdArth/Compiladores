@@ -78,11 +78,11 @@ System.out.println(e);
 
         
         List<Character> left = new ArrayList<Character>();
-        
+        boolean check =false;
         
         
         for (int i = 0; i < list1.size(); i++) {
-            for (int j = 0; j < list1.get(i).getLine().length(); j++) {
+            for (int j = 7; j < list1.get(i).getLine().length(); j++) {
                 vchar.add(list1.get(i).getLine().charAt(j));
             }
             list2.add(vchar);
@@ -94,41 +94,40 @@ System.out.println(e);
             if (list2.get(i).get(j)=='('||list2.get(i).get(j)=='['||
                 list2.get(i).get(j)=='{'||list2.get(i).get(j)=='<') {
                 left.add(list2.get(i).get(j));
-            } else {//1-{[]} 2-([)]         
+            } else {//1-{[]} 2-([)] 3-[{()()}[]] 7-<<[]()>>        
                 if (left.isEmpty()) {
                     
-                    if(i<list2.size()){
-                        i++;
-                        j=0;
-                    }
-                    else{
-                        break;
-                    }
+                  
+                        check=true;
+                    
+                   
                 }
-                
+                if(check==false){
                 if (list2.get(i).get(j)==')' && left.get(left.size()-1)!='('||
                     list2.get(i).get(j)=='}' && left.get(left.size()-1)!='{'||
                     list2.get(i).get(j)=='>' && left.get(left.size()-1)!='<'||
                     list2.get(i).get(j)==']' && left.get(left.size()-1)!='[') {
-                        if(i<list2.size()){
-                            i++;
-                            j=0;
-                        }
-                        else{
-                            break;
-                        }
+                        
+                            check=true;
+                        
+                       
                     }
+                    if(check==false){
                     left.remove(left.size()-1);
+                    }
+                    else{
+                        left.clear();
+                        check=false;
+                    }
                 }
-                
+                    
+                }
             }
+                
+            
         
         if(left.isEmpty()){
-            String line=list1.get(i).getLine();
-            //LC obj = new LC();
-            //obj.setLine(line);
-            //obj.setCheck(true);
-            //list1.get(i).ge=obj;
+          
             list1.get(i).setCheck(true);
         }
        }
